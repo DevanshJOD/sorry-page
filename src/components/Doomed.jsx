@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const SECRET_CODE = "04/08/2004";
+const SECRET_CODE = "15/09/2006";
 
 export default function Doomed({ onRestart }) {
   const [input, setInput] = useState("");
@@ -25,15 +25,11 @@ export default function Doomed({ onRestart }) {
 
   const formatInput = (val) => {
     const digits = val.replace(/\D/g, "");
-    let formatted = "";
-    if (digits.length <= 2) {
-      formatted = digits;
-    } else if (digits.length <= 4) {
-      formatted = digits.slice(0, 2) + "/" + digits.slice(2);
-    } else {
-      formatted = digits.slice(0, 2) + "/" + digits.slice(2, 4) + "/" + digits.slice(4, 8);
-    }
-    setInput(formatted);
+    let f = "";
+    if (digits.length <= 2) f = digits;
+    else if (digits.length <= 4) f = digits.slice(0,2) + "/" + digits.slice(2);
+    else f = digits.slice(0,2) + "/" + digits.slice(2,4) + "/" + digits.slice(4,8);
+    setInput(f);
   };
 
   return (
@@ -41,19 +37,9 @@ export default function Doomed({ onRestart }) {
       <div className="doomed-content">
         <div className="doomed-emoji">💔</div>
         <h1 className="doomed-title">Access Denied</h1>
-        <p className="doomed-body">
-          You've used all 3 attempts.<br />
-          The page has self-destructed… 💥
-        </p>
-        <p className="doomed-hint-text">
-          Only one person can unlock this.<br />
-          Enter Devansh's date of birth to restore the page. 🔐
-        </p>
-        {hint && (
-          <p className="doomed-hint-clue">
-            💡 Hint: Format is DD/MM/YYYY
-          </p>
-        )}
+        <p className="doomed-body">You've used all 3 attempts.<br />The page has self-destructed… 💥</p>
+        <p className="doomed-hint-text">Only one person can unlock this.<br />Enter Devansh's date of birth to restore the page. 🔐</p>
+        {hint && <p className="doomed-hint-clue">💡 Hint: Format is DD/MM/YYYY</p>}
         <div className={`doomed-input-row ${shake ? "shake" : ""} ${unlocking ? "unlocking" : ""}`}>
           <input
             className="doomed-input"
@@ -69,15 +55,9 @@ export default function Doomed({ onRestart }) {
             {unlocking ? "✨ Unlocking…" : "Unlock 🔓"}
           </button>
         </div>
-        {tries > 0 && !unlocking && (
-          <p className="doomed-wrong">
-            Wrong date. Think harder… or just text him 😏
-          </p>
-        )}
+        {tries > 0 && !unlocking && <p className="doomed-wrong">Wrong date. Think harder… or just text him 😏</p>}
         <div className="doomed-cracks">
-          <div className="crack c1" />
-          <div className="crack c2" />
-          <div className="crack c3" />
+          <div className="crack c1" /><div className="crack c2" /><div className="crack c3" />
         </div>
       </div>
     </div>

@@ -8,6 +8,8 @@ import FinalLetter from "./components/FinalLetter";
 import UserPage from "./components/UserPage";
 import Doomed from "./components/Doomed";
 import FloatingHearts from "./components/FloatingHearts";
+import CursorTrail from "./components/CursorTrail";
+import EasterEgg from "./components/EasterEgg";
 
 export default function App() {
   const [phase, setPhase] = useState("landing");
@@ -17,19 +19,17 @@ export default function App() {
   return (
     <div className="app-root">
       <FloatingHearts />
+      <CursorTrail />
+      <EasterEgg />
 
-      {phase === "landing" && (
-        <Landing onReady={() => setPhase("login")} />
-      )}
+      {phase === "landing" && <Landing onReady={() => setPhase("login")} />}
       {phase === "login" && (
         <Login
-          onSuccess={(profile) => { setUserProfile(profile); setPhase("dashboard"); }}
+          onSuccess={profile => { setUserProfile(profile); setPhase("dashboard"); }}
           onDoomed={() => setPhase("doomed")}
         />
       )}
-      {phase === "doomed" && (
-        <Doomed onRestart={() => setPhase("login")} />
-      )}
+      {phase === "doomed" && <Doomed onRestart={() => setPhase("login")} />}
       {phase === "dashboard" && (
         <Dashboard
           profile={userProfile}
@@ -39,7 +39,7 @@ export default function App() {
       )}
       {phase === "quiz" && (
         <Quiz
-          onComplete={(answers) => { setQuizAnswers(answers); setPhase("final"); }}
+          onComplete={answers => { setQuizAnswers(answers); setPhase("final"); }}
           onViewProfile={() => setPhase("userpage")}
         />
       )}
